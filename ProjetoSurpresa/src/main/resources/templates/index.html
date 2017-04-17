@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="registerControllerApp">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Tela principal</title>
+
+    <link href="javascript/bootstrap.min.css" rel="stylesheet"/>
+    <link href="javascript/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../javascript/angular.min.js"></script>
+    <script type="text/javascript" src="../javascript/registerController.js"></script>
+
+</head>
+<boby>
+
+
+    <form class="form" ng-controller="registerController">
+
+        <img class="profile-img" src="http://www.clickgratis.com.br/fotos-imagens/imagens/aHR0cDovL2k2Mi50aW55cGljLmNvbS8ybXc5a3I5LmpwZw==.jpg"/>
+
+        <input type="text"  class="form-control login-input" name="username" ng-model="login" placeholder="Login" autofocus=""/>
+
+        <input type="password" class="form-control login-input" name="password" ng-model="senha" placeholder="senha"/>
+
+        <a class="btn btn-lg btn-primary btn-block" ng-click="logar()">Login</a>
+
+        <a class="btn btn-block btn-lg btn-warning" href="http://172.23.17.114:8080/person/register.html">Register</a>
+
+    </form>
+
+    <script src="javascript/jquery-3.2.0.min.js"></script>
+    <script src="javascript/bootstrap.min.js"></script>
+
+</boby>
+</html>

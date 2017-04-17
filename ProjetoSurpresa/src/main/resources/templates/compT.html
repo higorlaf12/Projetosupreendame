@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="appMain">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>TELA CADASTRA</title>
+
+    <link href="../javascript/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../javascript/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../javascript/angular.min.js"></script>
+    <script type="text/javascript" src="../javascript/app.js"></script>
+    <script type="text/javascript" src="../javascript/compTSalvaController.js"></script>
+    <script type="text/javascript" src="../javascript/compEditController.js"></script>
+    <script type="text/javascript" src="../javascript/compTDeletController.js"></script>
+
+</head>
+<boby>
+    <form method="post">
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                            aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="/compT.html">CADASTRA DADOS</a>
+
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="../">Início</a></li>
+                        <li><a href="#">Opções</a></li>
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="#">Ajuda</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main" class="container-fluid" ng-controller="compTSalvaController">
+            <h3 class="page-header">Inicio</h3>
+
+            <div id="top" class="row">
+                <div class="col-md-3">
+                    <h2>Itens</h2>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group h2">
+                        <input name="data" class="form-control" id="search" type="text"  ng-model="descricao" placeholder="Dados da Descriçao"/>
+                        <br/><br/>
+                        <input name="data" class="form-control" id="search2" type="text" ng-model="produto" placeholder="Dados do Produto"/>
+                        <br/><br/>
+                        <input name="data" class="form-control" id="search3" type="date" ng-model="datas" placeholder="Data"/>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <input type="submit" class="btn btn-primary pull-right h2" ng-click="salvarDados()" value="Save"/>
+                </div>
+            </div>
+
+            <hr />
+            <div id="list" class="row" ng-controller="compTDeletController" data-ng-init="init()">
+                <div class="table-responsive col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Produto</th>
+                            <th>Descrição</th>
+                            <th>Data</th>
+                            <th class="actions">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="saving in savings track by $index ">
+                            <td>{{ saving.id }}</td>
+                            <td>{{ saving.produto  }}</td>
+                            <td>{{ saving.descricao }}</td>
+                            <td>{{ saving.datas | date:'dd/MM/yyyy'}}</td >
+                            <td class="actions">
+                                <a class="btn btn-warning btn-xs" href="#" data-toggle="modal" data-target="#{{saving.id}}" >Editar</a>
+                                <div class="modal fade" id="{{saving.id}}" ng-controller="compEditController" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Alterar dados</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <input name="data" class="form-control" id="search32" type="text"  ng-model="savings[$index].id" value="{{ saving.id }}" disabled="true"/>
+
+                                                <input name="data" class="form-control" id="search1" type="text"  ng-model="descricao" placeholder="Dados da Descriçao"/>
+
+                                                <input name="data" class="form-control" id="search22" type="text" ng-model="produto" placeholder="Dados do Produto"/>
+
+                                                <input name="data" class="form-control" id="search33" type="date" ng-model="datas" placeholder="Data"/>
+
+                                                Deseja realmente alterar estes dados?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" ng-click="editarDados($index)" data-dismiss="modal" href="/compT.html">Sim</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-danger btn-xs" href="#" data-toggle="modal" data-target="#{{saving.id}}1" >Excluir</a>
+                                <div class="modal fade" id="{{saving.id}}1" ng-controller="compTDeletController">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Excluir Item</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Deseja realmente excluir este item?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" ng-click="removerDados(saving.id)" data-dismiss="modal" >Sim</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="bottom" class="row">
+                <div class="col-md-12">
+                    <ul class="pagination">
+                        <li class="disabled"><a>Anterior</a></li>
+                        <li class="disabled"><a>1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li class="next"><a href="#" rel="next">Próximo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="../javascript/jquery-3.2.0.min.js"></script>
+    <script src="../javascript/bootstrap.min.js"></script>
+</boby>
+</html>
